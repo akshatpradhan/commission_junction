@@ -5,7 +5,7 @@
     %link{:href => "/stylesheets/main.css", :rel => "stylesheet", :type => "text/css"}
   
   %body
-    %h1 CJ Link Search Service v.2
+    %h1 CJ Soap API
 
     %form{:action => "/search", :method => "post"}
       %table
@@ -13,29 +13,33 @@
           %td Developer Key
           %td
             %input{:id => "developerKey", :name => "developerKey", :type => "text", :value => "00a3cf9d83c55966185b7c0b00639eed47bbc6b7a74796082eb010a20f17529e9db0b75b18a8ffae21874a3012eba6e1f1b8f4b01e48cc3fdf8a4914896a7087d7/717d9cd6b77ac9962483db2768dda9ed21f67a34e60ed71a69970c80421b569233288e80d652d00b2af4b18aa778fc804946c2bb03e5b1ffde27eda03b9d0729"}
-
         %tr
           %td Website Id
           %td
             %input{:id => "websiteId", :name => "websiteId", :type => "text", :value => "3107574"}
-
+        %tr
+          %td Service
+          %td
+            %select{:id => "service", :name => "service"}
+              - Services.keys.each do |service|
+                %option{:value => service}= service
         %tr
           %td Keywords
           %td
-            %input{:id => "keywords", :name => "keywords", :type => "text"}
+            %input{:id => "keywords", :name => "keywords", :type => "text", :value => (params[:keywords] || "kitchen sink")}
 
       %p
         %input{:type => "submit", :value => "Search"}
 
     - if defined? results
       #results
-        %h2= "Found #{results.out.count} results for #{search.keywords.inspect}"
-        - results.out.links.each do |link|
+        %h2= "Found #{results.length} results for #{params[:keywords].inspect}"
+        - results.each do |result|
           %table
             %thead
               %td.name Parameter Name
               %td.value Value
-            - link.ivars_hash.each do |name, value|            
+            - result.each do |name, value|            
               %tr
                 %td.name= name
                 %td.value= value

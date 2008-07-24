@@ -2,45 +2,7 @@ $:.unshift(File.dirname(__FILE__)) unless
   $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
 
 require 'soap/wsdlDriver'
-
-Array.class_eval do
-  def to_hash
-    self.inject({}) do |hash, pair|
-      hash[pair[0]] = pair[1]
-      hash
-    end
-  end
-end
-
-Hash.class_eval do
-  def to_struct
-    return {} if empty?
-#    raise "Cannot convert an empty hash into a struct!" if empty?
-    keys = self.keys.map {|k| k.to_sym }
-    Struct.new(*keys).new(*(self.values))
-  end
-end
-
-Object.class_eval do
-  def instance_variables_hash
-    instance_variables.inject({}) {|hash, name| hash[name.gsub("@", "")] = instance_variable_get(name); hash }
-  end
-end
-
-SOAP::Mapping::Object.class_eval do
-  def to_object
-    __xmlele.map do |qname, value| 
-      value = if value.is_a? SOAP::Mapping::Object
-                value.to_object
-              elsif value.is_a? Array
-                value.map {|v| v.is_a?(SOAP::Mapping::Object) ? v.to_object : v }
-              else
-                value
-              end
-      [qname.name, value] 
-    end.to_hash.to_struct
-  end
-end
+require 'commission_junction/ext'
 
 class CommissionJunction
   @@wsdls = {
@@ -61,7 +23,7 @@ class CommissionJunction
   # http://help.cj.com/en/web_services/Product_Catalog_Search_Service_v.2.htm
   #
   def productSearch(params = {})
-    doOperation('ProductSearch', __method__, self.instance_variables_hash.merge(params))
+    doOperation('ProductSearch', 'search', self.instance_variables_hash.merge(params))
   end
 
   # 
@@ -96,6 +58,8 @@ class CommissionJunction
   # http://help.cj.com/en/web_services/Advertiser_Search_Service_v.2.htm
   #
   def advertiserSearch(params = {})
+    params[:startAt] ||= 0
+    params[:maxResults] ||= 10
     doOperation('AdvertiserSearch', 'search', self.instance_variables_hash.merge(params))
   end
 
@@ -144,6 +108,6 @@ class CommissionJunction
   def doOperation(service, method, params)
     factory = SOAP::WSDLDriverFactory.new(@@wsdls[service])
     driver = factory.create_rpc_driver
-    driver.send(method, params).to_object
+    driver.send(method, params).to_hash["out"]
   end
 end
