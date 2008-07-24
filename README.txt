@@ -1,32 +1,29 @@
 = commission_junction
 
-* FIX (url)
+* http://github.com/farleyknight/commission_junction/
 
 == DESCRIPTION:
 
-FIX (describe your package)
+A Soap API for Commission Junction
 
 == FEATURES/PROBLEMS:
 
-* FIX (list of features or problems)
+* http://webservices.cj.com/
 
 == SYNOPSIS:
 
-  FIX (code sample of usage)
-
-== REQUIREMENTS:
-
-* FIX (list of requirements)
+* This API is mostly based on the Symfony plugin: http://trac.symfony-project.org/wiki/sfCommissionJunctionPlugin
 
 == INSTALL:
 
-* FIX (sudo gem install, anything else)
+* $ gem sources -a http://gems.github.com # add github to your sources
+* $ sudo gem install farleyknight-commission_junction 
 
 == LICENSE:
 
 (The MIT License)
 
-Copyright (c) 2008 FIXME full name
+Copyright (c) 2008 Farley Knight
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
