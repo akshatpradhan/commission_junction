@@ -30,28 +30,28 @@ class CommissionJunction
   # http://help.cj.com/en/web_services/Link_Search_Service_v.2.htm
   #
   def searchLinks(params = {})
-    doOperation('LinkSearch', __method__, self.instance_variables_hash.merge(params))
+    doOperation('LinkSearch', 'searchLinks', self.instance_variables_hash.merge(params))
   end  
 
   #
   # http://help.cj.com/en/web_services/Publisher_Commission_Service.htm
   # 
   def findPublisherCommissions(params = {})
-    doOperation('PublisherCommission', __method__, self.instance_variables_hash.merge(params))
+    doOperation('PublisherCommission', 'findPublisherCommissions', self.instance_variables_hash.merge(params))
   end
   
   #
   # http://help.cj.com/en/web_services/Publisher_Commission_Service.htm
   # 
   def findPublisherCommissionDetails(params = {})
-    doOperation('PublisherCommission', __method__, self.instance_variables_hash.merge(params))
+    doOperation('PublisherCommission', 'findPublisherCommissionDetails', self.instance_variables_hash.merge(params))
   end
   
   #
   # http://help.cj.com/en/web_services/Real_Time_Commission_Service.htm
   # 
   def retrieveLatestTransactions(params = {})
-    doOperation('RealTimeCommission', __method__, self.instance_variables_hash.merge(params))
+    doOperation('RealTimeCommission', 'retrieveLatestTransactions', self.instance_variables_hash.merge(params))
   end
   
   #
@@ -67,42 +67,42 @@ class CommissionJunction
   # http://help.cj.com/en/web_services/Publisher_Lookup_Service.htm
   #
   def publisherLookup(token)
-    doOperation('PublisherLookup', __method__, self.instance_variables_hash.merge({:token => token}))
+    doOperation('PublisherLookup', 'publisherLookup', self.instance_variables_hash.merge({:token => token}))
   end
 
   #
   # http://help.cj.com/en/web_services/Support_Services.htm
   #
   def getCategories(locale = 'US')
-    doOperation('FieldTypesSupport', __method__, self.instance_variables_hash.merge({:locale => locale}))
+    doOperation('FieldTypesSupport', 'getCategories', self.instance_variables_hash.merge({:locale => locale}))
   end
 
   #
   # http://help.cj.com/en/web_services/Support_Services.htm
   #
   def getLinkTypes
-    doOperation('FieldTypesSupport', __method__, self.instance_variables_hash)
+    doOperation('FieldTypesSupport', 'getLinkTypes', self.instance_variables_hash)
   end
   
   #
   # http://help.cj.com/en/web_services/Support_Services.htm
   #
   def getLinkSizes
-    doOperation('FieldTypesSupport', __method__, self.instance_variables_hash)
+    doOperation('FieldTypesSupport', 'getLinkSizes', self.instance_variables_hash)
   end
 
   #
   # http://help.cj.com/en/web_services/Support_Services.htm
   #
   def getCountries(locale = 'US')
-    doOperation('FieldTypesSupport', __method__, self.instance_variables_hash.merge({:locale => locale}))
+    doOperation('FieldTypesSupport', 'getCountries', self.instance_variables_hash.merge({:locale => locale}))
   end
 
   #
   # http://help.cj.com/en/web_services/Support_Services.htm
   #
   def getLanguages
-    doOperation('FieldTypesSupport', __method__, self.instance_variables_hash)
+    doOperation('FieldTypesSupport', 'getLanguages', self.instance_variables_hash)
   end
 
   def doOperation(service, method, params)

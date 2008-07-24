@@ -1,8 +1,8 @@
 require 'commission_junction/version'
 
-AUTHOR = 'FIXME full name'  # can also be an array of Authors
-EMAIL = "FIXME email"
-DESCRIPTION = "description of gem"
+AUTHOR = 'Farley Knight'  # can also be an array of Authors
+EMAIL = "farleyknight@gmail.com"
+DESCRIPTION = "Commission Junction SOAP API"
 GEM_NAME = 'commission_junction' # what ppl will type to install your gem
 RUBYFORGE_PROJECT = 'commission_junction' # The unix name for your project
 HOMEPATH = "http://#{RUBYFORGE_PROJECT}.rubyforge.org"
