@@ -1,0 +1,9 @@
+
+/* #results td { padding-right:10px; padding-left:10px; border-left-style:Solid; border-left-color:#000000; border-top-color:#000000; border-top-style:Solid; border-right-style:Solid; border-right-color:#000000; border-bottom-color:#000000; border-bottom-style:Solid; border-right-width:1px; border-left-width:1px; border-top-width:1px; border-bottom-width:1px; background-color:#c0c0c0; } */
+
+/* #results td { padding-right:10px; padding-left:10px; border-top-color:#000000; border-top-style:Solid; border-right-style:Solid; border-right-color:#000000; border-bottom-color:#000000; border-bottom-style:Solid; border-right-width:1px; border-top-width:1px; border-bottom-width:1px; background-color:#c0c0c0; } */
+
+
+#results thead td { width:23.051%; padding-right:10px; padding-left:10px; border-style:Solid; border-color:#000000; border-width:1px; border-right-style:Solid; border-right-color:#000000; border-right-width:1px; border-bottom-width:1px; border-bottom-color:#000000; border-bottom-style:Solid; background-color: #c0c0c0; }
+#results tr td { width:23.051%; padding-right:10px; padding-left:10px; border-style:Solid; border-color:#000000; border-width:1px; border-right-style:Solid; border-right-color:#000000; border-right-width:1px; border-bottom-width:1px; border-bottom-color:#000000; border-bottom-style:Solid; }
+
