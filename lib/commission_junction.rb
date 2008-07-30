@@ -4,7 +4,67 @@ $:.unshift(File.dirname(__FILE__)) unless
 require 'soap/wsdlDriver'
 require 'commission_junction/ext'
 
+#
+# A fairly simple example of the library
+#   require 'commission_junction'
+#
+# Your developer key
+#   developerKey = "1234567890abc...."
+#
+# Your Web site ID (PID)
+#   websiteId    = "1234567"
+#
+# A new instance of the Commission Junction service API
+#   cj = CommissionJunction.new(developerKey, websiteId)
+#
+# A minimal search, using the keywords parameter
+#   result = cj.searchLinks(:keywords => "kitchen sink")
+#
+# All CJ results are hashes.. I found this to be easier to
+# use than objects because hashes are more transparent:
+#
+#   pp results
+#   
+#   Outputs:
+#   # {"totalResults"=>"1200",
+#   #  "count"=>"10",
+#   #  "links"=>
+#   #   {"LinkDetail"=>
+#   #     [{"threeMonthEPC"=>"-9999999.0",
+#   #       "sevenDayEPC"=>"-9999999.0",
+#   #       "promotionType"=>{},
+#   #       "linkDestination"=>
+#
+# Another example, using 'sortBy', shown in the web services documentation
+#   results = cj.searchLinks(:keywords => "kitchen sink", :sortBy => "linkId")
+#
+#   pp results
+#   
+#   Outputs:
+#   # {"totalResults"=>"1200",
+#   #  "count"=>"10",
+#   #  "links"=>
+#   #   {"LinkDetail"=>
+#   #     [{"threeMonthEPC"=>"-9999999.0",
+#   #       "sevenDayEPC"=>"-9999999.0",
+#   #       "promotionType"=>{},
+#   #       "linkDestination"=>
+#   #        "http://www.vintagetub.com/asp/sinks.asp?utm_id=ID2001",
+#   #       "relationshipStatus"=>"notjoined",
+#   #       "linkId"=>"10411673",
+#   #       "category"=>"bed & bath",
+#   #       "linkCodeJavascript"=>{},
+#
+
 class CommissionJunction
+  module VERSION 
+    MAJOR = 1
+    MINOR = 0
+    TINY  = 2
+
+    STRING = [MAJOR, MINOR, TINY].join('.')
+  end
+
   @@wsdls = {
     'ProductSearch'       =>  'https://product.api.cj.com/wsdl/version2/productSearchServiceV2.wsdl',
     'LinkSearch'          =>  'https://product.api.cj.com/wsdl/version2/linkSearchServiceV2.wsdl',
@@ -20,6 +80,7 @@ class CommissionJunction
   end
 
   #
+  # For a list of possible params (where applicable) or more information, go to:
   # http://help.cj.com/en/web_services/Product_Catalog_Search_Service_v.2.htm
   #
   def productSearch(params = {})
@@ -27,6 +88,7 @@ class CommissionJunction
   end
 
   # 
+  # For a list of possible params (where applicable) or more information, go to:
   # http://help.cj.com/en/web_services/Link_Search_Service_v.2.htm
   #
   def searchLinks(params = {})
@@ -34,6 +96,7 @@ class CommissionJunction
   end  
 
   #
+  # For a list of possible params (where applicable) or more information, go to:
   # http://help.cj.com/en/web_services/Publisher_Commission_Service.htm
   # 
   def findPublisherCommissions(params = {})
@@ -41,6 +104,7 @@ class CommissionJunction
   end
   
   #
+  # For a list of possible params (where applicable) or more information, go to:
   # http://help.cj.com/en/web_services/Publisher_Commission_Service.htm
   # 
   def findPublisherCommissionDetails(params = {})
@@ -48,6 +112,7 @@ class CommissionJunction
   end
   
   #
+  # For a list of possible params (where applicable) or more information, go to:
   # http://help.cj.com/en/web_services/Real_Time_Commission_Service.htm
   # 
   def retrieveLatestTransactions(params = {})
@@ -55,6 +120,7 @@ class CommissionJunction
   end
   
   #
+  # For a list of possible params (where applicable) or more information, go to:
   # http://help.cj.com/en/web_services/Advertiser_Search_Service_v.2.htm
   #
   def advertiserSearch(params = {})
@@ -64,6 +130,7 @@ class CommissionJunction
   end
 
   #
+  # For a list of possible params (where applicable) or more information, go to:
   # http://help.cj.com/en/web_services/Publisher_Lookup_Service.htm
   #
   def publisherLookup(token)
@@ -71,6 +138,7 @@ class CommissionJunction
   end
 
   #
+  # For a list of possible params (where applicable) or more information, go to:
   # http://help.cj.com/en/web_services/Support_Services.htm
   #
   def getCategories(locale = 'US')
@@ -78,6 +146,7 @@ class CommissionJunction
   end
 
   #
+  # For a list of possible params (where applicable) or more information, go to:
   # http://help.cj.com/en/web_services/Support_Services.htm
   #
   def getLinkTypes
@@ -85,6 +154,7 @@ class CommissionJunction
   end
   
   #
+  # For a list of possible params (where applicable) or more information, go to:
   # http://help.cj.com/en/web_services/Support_Services.htm
   #
   def getLinkSizes
@@ -92,6 +162,7 @@ class CommissionJunction
   end
 
   #
+  # For a list of possible params (where applicable) or more information, go to:
   # http://help.cj.com/en/web_services/Support_Services.htm
   #
   def getCountries(locale = 'US')
@@ -99,12 +170,14 @@ class CommissionJunction
   end
 
   #
+  # For a list of possible params (where applicable) or more information, go to:
   # http://help.cj.com/en/web_services/Support_Services.htm
   #
   def getLanguages
     doOperation('FieldTypesSupport', 'getLanguages', self.instance_variables_hash)
   end
 
+  protected
   def doOperation(service, method, params)
     factory = SOAP::WSDLDriverFactory.new(@@wsdls[service])
     driver = factory.create_rpc_driver

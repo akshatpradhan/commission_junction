@@ -1,25 +1,24 @@
 = commission_junction
 
-* http://github.com/farleyknight/commission_junction/
+== What?
 
-== DESCRIPTION:
+A Soap API for CommissionJunction
 
-A Soap API for Commission Junction
+== Where?
 
-== FEATURES/PROBLEMS:
+http://github.com/farleyknight/commission_junction/
 
-* http://webservices.cj.com/
+== How?
 
-== SYNOPSIS:
+This API is mostly based on the Symfony plugin: http://trac.symfony-project.org/wiki/sfCommissionJunctionPlugin
 
-* This API is mostly based on the Symfony plugin: http://trac.symfony-project.org/wiki/sfCommissionJunctionPlugin
+== Git it:
 
-== INSTALL:
+$ gem sources -a http://gems.github.com 
 
-* $ gem sources -a http://gems.github.com # add github to your sources
-* $ sudo gem install farleyknight-commission_junction 
+$ sudo gem install farleyknight-commission_junction 
 
-== LICENSE:
+== License:
 
 (The MIT License)
 

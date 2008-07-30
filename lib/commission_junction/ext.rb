@@ -8,14 +8,6 @@ Array.class_eval do
   end
 end
 
-# Hash.class_eval do
-#   def to_struct
-#     return {} if empty?
-#     keys = self.keys.map {|k| k.to_sym }
-#     Struct.new(*keys).new(*(self.values))
-#   end
-# end
-
 Object.class_eval do
   def instance_variables_hash
     instance_variables.inject({}) do |hash, name| 

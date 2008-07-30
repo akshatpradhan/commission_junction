@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: CommissionJunction</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">CommissionJunction</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/lib/commission_junction_rb.html">
+                lib/commission_junction.rb
+                </a>
+        <br />
+                <a href="../files/lib/commission_junction/version_rb.html">
+                lib/commission_junction/version.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+A fairly simple example of the library
+</p>
+<pre>
+  require 'commission_junction'
+</pre>
+<p>
+Your developer key
+</p>
+<pre>
+  developerKey = &quot;1234567890abc....&quot;
+</pre>
+<p>
+Your Web site ID (PID)
+</p>
+<pre>
+  websiteId    = &quot;1234567&quot;
+</pre>
+<p>
+A <a href="CommissionJunction.html#M000005">new</a> instance of the
+Commission Junction service API
+</p>
+<pre>
+  cj = CommissionJunction.new(developerKey, websiteId)
+</pre>
+<p>
+A minimal search, using the keywords parameter
+</p>
+<pre>
+  result = cj.searchLinks(:keywords =&gt; &quot;kitchen sink&quot;)
+</pre>
+<p>
+All CJ results are hashes.. I found this to be easier to use than objects
+because hashes are more transparent:
+</p>
+<pre>
+  pp results
+
+  Outputs:
+  # {&quot;totalResults&quot;=&gt;&quot;1200&quot;,
+  #  &quot;count&quot;=&gt;&quot;10&quot;,
+  #  &quot;links&quot;=&gt;
+  #   {&quot;LinkDetail&quot;=&gt;
+  #     [{&quot;threeMonthEPC&quot;=&gt;&quot;-9999999.0&quot;,
+  #       &quot;sevenDayEPC&quot;=&gt;&quot;-9999999.0&quot;,
+  #       &quot;promotionType&quot;=&gt;{},
+  #       &quot;linkDestination&quot;=&gt;
+</pre>
+<p>
+Another example, using &#8216;sortBy&#8217;, shown in the web services
+documentation
+</p>
+<pre>
+  results = cj.searchLinks(:keywords =&gt; &quot;kitchen sink&quot;, :sortBy =&gt; &quot;linkId&quot;)
+
+  pp results
+
+  Outputs:
+  # {&quot;totalResults&quot;=&gt;&quot;1200&quot;,
+  #  &quot;count&quot;=&gt;&quot;10&quot;,
+  #  &quot;links&quot;=&gt;
+  #   {&quot;LinkDetail&quot;=&gt;
+  #     [{&quot;threeMonthEPC&quot;=&gt;&quot;-9999999.0&quot;,
+  #       &quot;sevenDayEPC&quot;=&gt;&quot;-9999999.0&quot;,
+  #       &quot;promotionType&quot;=&gt;{},
+  #       &quot;linkDestination&quot;=&gt;
+  #        &quot;http://www.vintagetub.com/asp/sinks.asp?utm_id=ID2001&quot;,
+  #       &quot;relationshipStatus&quot;=&gt;&quot;notjoined&quot;,
+  #       &quot;linkId&quot;=&gt;&quot;10411673&quot;,
+  #       &quot;category&quot;=&gt;&quot;bed &amp; bath&quot;,
+  #       &quot;linkCodeJavascript&quot;=&gt;{},
+</pre>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000011">advertiserSearch</a>&nbsp;&nbsp;
+      <a href="#M000018">doOperation</a>&nbsp;&nbsp;
+      <a href="#M000009">findPublisherCommissionDetails</a>&nbsp;&nbsp;
+      <a href="#M000008">findPublisherCommissions</a>&nbsp;&nbsp;
+      <a href="#M000013">getCategories</a>&nbsp;&nbsp;
+      <a href="#M000016">getCountries</a>&nbsp;&nbsp;
+      <a href="#M000017">getLanguages</a>&nbsp;&nbsp;
+      <a href="#M000015">getLinkSizes</a>&nbsp;&nbsp;
+      <a href="#M000014">getLinkTypes</a>&nbsp;&nbsp;
+      <a href="#M000005">new</a>&nbsp;&nbsp;
+      <a href="#M000006">productSearch</a>&nbsp;&nbsp;
+      <a href="#M000012">publisherLookup</a>&nbsp;&nbsp;
+      <a href="#M000010">retrieveLatestTransactions</a>&nbsp;&nbsp;
+      <a href="#M000007">searchLinks</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000005" class="method-detail">
+        <a name="M000005"></a>
+
+        <div class="method-heading">
+          <a href="CommissionJunction.src/M000005.html" target="Code" class="method-signature"
+            onclick="popupCode('CommissionJunction.src/M000005.html');return false;">
+          <span class="method-name">new</span><span class="method-args">(developerKey, websiteId)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000011" class="method-detail">
+        <a name="M000011"></a>
+
+        <div class="method-heading">
+          <a href="CommissionJunction.src/M000011.html" target="Code" class="method-signature"
+            onclick="popupCode('CommissionJunction.src/M000011.html');return false;">
+          <span class="method-name">advertiserSearch</span><span class="method-args">(params = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+For a list of possible params (where applicable) or more information, go
+to: <a
+href="http://help.cj.com/en/web_services/Advertiser_Search_Service_v.2.htm">help.cj.com/en/web_services/Advertiser_Search_Service_v.2.htm</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000009" class="method-detail">
+        <a name="M000009"></a>
+
+        <div class="method-heading">
+          <a href="CommissionJunction.src/M000009.html" target="Code" class="method-signature"
+            onclick="popupCode('CommissionJunction.src/M000009.html');return false;">
+          <span class="method-name">findPublisherCommissionDetails</span><span class="method-args">(params = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+For a list of possible params (where applicable) or more information, go
+to: <a
+href="http://help.cj.com/en/web_services/Publisher_Commission_Service.htm">help.cj.com/en/web_services/Publisher_Commission_Service.htm</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000008" class="method-detail">
+        <a name="M000008"></a>
+
+        <div class="method-heading">
+          <a href="CommissionJunction.src/M000008.html" target="Code" class="method-signature"
+            onclick="popupCode('CommissionJunction.src/M000008.html');return false;">
+          <span class="method-name">findPublisherCommissions</span><span class="method-args">(params = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+For a list of possible params (where applicable) or more information, go
+to: <a
+href="http://help.cj.com/en/web_services/Publisher_Commission_Service.htm">help.cj.com/en/web_services/Publisher_Commission_Service.htm</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000013" class="method-detail">
+        <a name="M000013"></a>
+
+        <div class="method-heading">
+          <a href="CommissionJunction.src/M000013.html" target="Code" class="method-signature"
+            onclick="popupCode('CommissionJunction.src/M000013.html');return false;">
+          <span class="method-name">getCategories</span><span class="method-args">(locale = 'US')</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+For a list of possible params (where applicable) or more information, go
+to: <a
+href="http://help.cj.com/en/web_services/Support_Services.htm">help.cj.com/en/web_services/Support_Services.htm</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000016" class="method-detail">
+        <a name="M000016"></a>
+
+        <div class="method-heading">
+          <a href="CommissionJunction.src/M000016.html" target="Code" class="method-signature"
+            onclick="popupCode('CommissionJunction.src/M000016.html');return false;">
+          <span class="method-name">getCountries</span><span class="method-args">(locale = 'US')</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+For a list of possible params (where applicable) or more information, go
+to: <a
+href="http://help.cj.com/en/web_services/Support_Services.htm">help.cj.com/en/web_services/Support_Services.htm</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000017" class="method-detail">
+        <a name="M000017"></a>
+
+        <div class="method-heading">
+          <a href="CommissionJunction.src/M000017.html" target="Code" class="method-signature"
+            onclick="popupCode('CommissionJunction.src/M000017.html');return false;">
+          <span class="method-name">getLanguages</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+For a list of possible params (where applicable) or more information, go
+to: <a
+href="http://help.cj.com/en/web_services/Support_Services.htm">help.cj.com/en/web_services/Support_Services.htm</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000015" class="method-detail">
+        <a name="M000015"></a>
+
+        <div class="method-heading">
+          <a href="CommissionJunction.src/M000015.html" target="Code" class="method-signature"
+            onclick="popupCode('CommissionJunction.src/M000015.html');return false;">
+          <span class="method-name">getLinkSizes</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+For a list of possible params (where applicable) or more information, go
+to: <a
+href="http://help.cj.com/en/web_services/Support_Services.htm">help.cj.com/en/web_services/Support_Services.htm</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000014" class="method-detail">
+        <a name="M000014"></a>
+
+        <div class="method-heading">
+          <a href="CommissionJunction.src/M000014.html" target="Code" class="method-signature"
+            onclick="popupCode('CommissionJunction.src/M000014.html');return false;">
+          <span class="method-name">getLinkTypes</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+For a list of possible params (where applicable) or more information, go
+to: <a
+href="http://help.cj.com/en/web_services/Support_Services.htm">help.cj.com/en/web_services/Support_Services.htm</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000006" class="method-detail">
+        <a name="M000006"></a>
+
+        <div class="method-heading">
+          <a href="CommissionJunction.src/M000006.html" target="Code" class="method-signature"
+            onclick="popupCode('CommissionJunction.src/M000006.html');return false;">
+          <span class="method-name">productSearch</span><span class="method-args">(params = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+For a list of possible params (where applicable) or more information, go
+to: <a
+href="http://help.cj.com/en/web_services/Product_Catalog_Search_Service_v.2.htm">help.cj.com/en/web_services/Product_Catalog_Search_Service_v.2.htm</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000012" class="method-detail">
+        <a name="M000012"></a>
+
+        <div class="method-heading">
+          <a href="CommissionJunction.src/M000012.html" target="Code" class="method-signature"
+            onclick="popupCode('CommissionJunction.src/M000012.html');return false;">
+          <span class="method-name">publisherLookup</span><span class="method-args">(token)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+For a list of possible params (where applicable) or more information, go
+to: <a
+href="http://help.cj.com/en/web_services/Publisher_Lookup_Service.htm">help.cj.com/en/web_services/Publisher_Lookup_Service.htm</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000010" class="method-detail">
+        <a name="M000010"></a>
+
+        <div class="method-heading">
+          <a href="CommissionJunction.src/M000010.html" target="Code" class="method-signature"
+            onclick="popupCode('CommissionJunction.src/M000010.html');return false;">
+          <span class="method-name">retrieveLatestTransactions</span><span class="method-args">(params = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+For a list of possible params (where applicable) or more information, go
+to: <a
+href="http://help.cj.com/en/web_services/Real_Time_Commission_Service.htm">help.cj.com/en/web_services/Real_Time_Commission_Service.htm</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000007" class="method-detail">
+        <a name="M000007"></a>
+
+        <div class="method-heading">
+          <a href="CommissionJunction.src/M000007.html" target="Code" class="method-signature"
+            onclick="popupCode('CommissionJunction.src/M000007.html');return false;">
+          <span class="method-name">searchLinks</span><span class="method-args">(params = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+For a list of possible params (where applicable) or more information, go
+to: <a
+href="http://help.cj.com/en/web_services/Link_Search_Service_v.2.htm">help.cj.com/en/web_services/Link_Search_Service_v.2.htm</a>
+</p>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Protected Instance methods</h3>
+
+      <div id="method-M000018" class="method-detail">
+        <a name="M000018"></a>
+
+        <div class="method-heading">
+          <a href="CommissionJunction.src/M000018.html" target="Code" class="method-signature"
+            onclick="popupCode('CommissionJunction.src/M000018.html');return false;">
+          <span class="method-name">doOperation</span><span class="method-args">(service, method, params)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

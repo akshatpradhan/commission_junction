@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.description = "Commission Junction SOAP API"
   s.has_rdoc = true
   s.authors = ["Farley Knight"]
-  s.files = ["History.txt", "Manifest.txt", "README.txt", "Rakefile", "commission_junction.gemspec", "lib/commission_junction.rb", "lib/commission_junction/ext.rb"]
+  s.files = ["History.txt", "Manifest.txt", "README.txt", "Rakefile", "commission_junction.gemspec", "lib/commission_junction.rb", "lib/commission_junction/ext.rb", "examples/based_on_website.rb"]
   s.rdoc_options = ["--main", "README.txt"]
   s.extra_rdoc_files = ["History.txt", "Manifest.txt", "README.txt"]
 end
