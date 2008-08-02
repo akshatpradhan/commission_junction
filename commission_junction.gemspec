@@ -1,7 +1,7 @@
 
 Gem::Specification.new do |s|
   s.name = "commission_junction"
-  s.version = "1.0.2"
+  s.version = "1.0.3"
   s.date = "2008-07-24"
   s.summary = "Commission Junction SOAP API" 
   s.email = "farleyknight@gmail.com"
