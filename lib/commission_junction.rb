@@ -94,6 +94,7 @@ class CommissionJunction
   def searchLinks(params = {})
     doOperation('LinkSearch', 'searchLinks', self.instance_variables_hash.merge(params))
   end  
+  alias :linkSearch :searchLinks
 
   #
   # For a list of possible params (where applicable) or more information, go to:

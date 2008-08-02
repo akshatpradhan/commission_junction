@@ -1,3 +1,4 @@
+
 Gem::Specification.new do |s|
   s.name = "commission_junction"
   s.version = "1.0.2"
