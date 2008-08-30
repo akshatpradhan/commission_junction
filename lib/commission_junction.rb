@@ -23,6 +23,7 @@ require 'commission_junction/ext'
 # All CJ results are hashes.. I found this to be easier to
 # use than objects because hashes are more transparent:
 #
+#   require 'pp'
 #   pp results
 #   
 #   Outputs:
@@ -131,6 +132,12 @@ class CommissionJunction
   end
 
   #
+  # Required parameters
+  # token:  The Authentication Key from a successful publisher login. The Commission Junction authentication process generates this key and provides the developer with it. For example, after a publisher authenticates themselves with the Branded Login Service, the system appends the key to the specified redirect URL. 
+  #
+  # Response:
+  # The response includes information about the publisher necessary for advertisers or developers to complete a number of tasks, including: creating links, personalizing content and identifying the publisher with their program.
+  # 
   # For a list of possible params (where applicable) or more information, go to:
   # http://help.cj.com/en/web_services/Publisher_Lookup_Service.htm
   #
@@ -139,10 +146,13 @@ class CommissionJunction
   end
 
   #
+  # List of advertiser sub-categories. Use a language code provided
+  # by #getLanguages as your prefered locale (english is default).
+  #
   # For a list of possible params (where applicable) or more information, go to:
   # http://help.cj.com/en/web_services/Support_Services.htm
   #
-  def getCategories(locale = 'US')
+  def getCategories(locale = 'en')
     doOperation('FieldTypesSupport', 'getCategories', self.instance_variables_hash.merge({:locale => locale}))
   end
 
@@ -163,10 +173,13 @@ class CommissionJunction
   end
 
   #
+  # List of supported countries. Use a language code provided
+  # by #getLanguages as your prefered locale (english is default).
+  #
   # For a list of possible params (where applicable) or more information, go to:
   # http://help.cj.com/en/web_services/Support_Services.htm
   #
-  def getCountries(locale = 'US')
+  def getCountries(locale = 'en')
     doOperation('FieldTypesSupport', 'getCountries', self.instance_variables_hash.merge({:locale => locale}))
   end
 
