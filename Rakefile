@@ -1,4 +1,8 @@
 require 'config/requirements'
-require 'config/hoe' # setup Hoe + all gem configuration
 
 Dir['tasks/**/*.rake'].each { |rake| load rake }
+
+desc "Rebuilds the rdoc pages"
+task :rdoc do
+  `rdoc README.rdoc  lib/* -o doc`
+end

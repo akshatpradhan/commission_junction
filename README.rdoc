@@ -2,7 +2,7 @@
 
 == What?
 
-A Soap API for CommissionJunction
+A Soap API for CommissionJunction, plus some local storage capabilities..
 
 == Where?
 
@@ -11,6 +11,8 @@ http://github.com/farleyknight/commission_junction/
 == How?
 
 This API is mostly based on the Symfony plugin: http://trac.symfony-project.org/wiki/sfCommissionJunctionPlugin
+
+The storage functionality is still mostly a prototype for now.
 
 == Git it:
 

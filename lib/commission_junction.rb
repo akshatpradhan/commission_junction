@@ -1,9 +1,12 @@
 $:.unshift(File.dirname(__FILE__)) unless
   $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
 
+require 'yaml'
 require 'soap/wsdlDriver'
 require 'commission_junction/ext'
 
+#
+# = General Usage
 #
 # A fairly simple example of the library
 #   require 'commission_junction'
@@ -27,14 +30,14 @@ require 'commission_junction/ext'
 #   pp results
 #   
 #   Outputs:
-#   # {"totalResults"=>"1200",
-#   #  "count"=>"10",
-#   #  "links"=>
-#   #   {"LinkDetail"=>
-#   #     [{"threeMonthEPC"=>"-9999999.0",
-#   #       "sevenDayEPC"=>"-9999999.0",
-#   #       "promotionType"=>{},
-#   #       "linkDestination"=>
+#    {"totalResults"=>"1200",
+#     "count"=>"10",
+#     "links"=>
+#      {"LinkDetail"=>
+#        [{"threeMonthEPC"=>"-9999999.0",
+#          "sevenDayEPC"=>"-9999999.0",
+#          "promotionType"=>{},
+#          "linkDestination"=>
 #
 # Another example, using 'sortBy', shown in the web services documentation
 #   results = cj.searchLinks(:keywords => "kitchen sink", :sortBy => "linkId")
@@ -42,20 +45,83 @@ require 'commission_junction/ext'
 #   pp results
 #   
 #   Outputs:
-#   # {"totalResults"=>"1200",
-#   #  "count"=>"10",
-#   #  "links"=>
-#   #   {"LinkDetail"=>
-#   #     [{"threeMonthEPC"=>"-9999999.0",
-#   #       "sevenDayEPC"=>"-9999999.0",
-#   #       "promotionType"=>{},
-#   #       "linkDestination"=>
-#   #        "http://www.vintagetub.com/asp/sinks.asp?utm_id=ID2001",
-#   #       "relationshipStatus"=>"notjoined",
-#   #       "linkId"=>"10411673",
-#   #       "category"=>"bed & bath",
-#   #       "linkCodeJavascript"=>{},
+#    {"totalResults"=>"1200",
+#     "count"=>"10",
+#     "links"=>
+#      {"LinkDetail"=>
+#        [{"threeMonthEPC"=>"-9999999.0",
+#          "sevenDayEPC"=>"-9999999.0",
+#          "promotionType"=>{},
+#          "linkDestination"=>
+#           "http://www.vintagetub.com/asp/sinks.asp?utm_id=ID2001",
+#          "relationshipStatus"=>"notjoined",
+#          "linkId"=>"10411673",
+#          "category"=>"bed & bath",
+#          "linkCodeJavascript"=>{},
 #
+# = Configuration
+# 
+# If you don't want to pass your key and id on each instatiation of 
+# of CommissionJunction, create a yaml file:
+# 
+#   $HOME/.commission_junction.yaml
+# 
+# With $HOME being, of course, your home directory. Then include:
+# 
+#   developerKey: "1234567890abc...."
+#   websiteId: "1234567"
+# 
+#
+# = Storage
+# 
+# For convenience and more "on demand" usage of searchLinks
+# service, you can set up the ActiveRecord database table
+# and model, instead of fetching it on every request. 
+#
+# Here's an example, 
+
+# 1) First add your database information to the commission 
+# junction config, mentioned above:
+#   
+#   developerKey: "1234567890abc...."
+#   websiteId: "1234567"
+#
+#   database:
+#     adapter: mysql
+#     database: commission_junction
+#     username: cj
+#     password: cj
+#     host: localhost
+#
+# 2) Create your database:
+# 
+#   >> mysql -ucj
+#
+#   mysql> create database commission_junction;
+# 
+# 3) Then open up irb and run the migration to set up the
+# table itself
+# 
+#   >> require 'rubygems'
+#   >> require 'commission_junction'
+#   >> require 'commission_junction/migrate'
+#   >> 
+#   >> CommissionJunction.migrate!
+#  
+# A more preferable method may be found so this step
+# may change in the future, but for now it's adequate.
+# 
+# 4) Next you'll want to start loading it with content. 
+# 
+#   require 'rubygems'
+#   require 'commission_junction'
+#   require 'commission_junction/search_links'
+#   
+#   SearchLinks.update!
+#   
+# This should load your table with all the categories available
+# from Commission Junction. 
+# 
 
 class CommissionJunction
   module VERSION 
@@ -76,8 +142,18 @@ class CommissionJunction
     'FieldTypesSupport'   =>  'https://product.api.cj.com/wsdl/version2/supportServiceV2.wsdl'
   }
 
-  def initialize(developerKey, websiteId)
-    @developerKey, @websiteId = developerKey, websiteId
+  #
+  # If you've supplied the config file with the proper credentials
+  # then you don't need to pass a key or id.
+  #
+  # Also, any values passed will overwrite the config file's values
+  #
+  def initialize(developerKey = nil, websiteId =nil)
+    if File.exists?(Config.file)
+      parse_config_file!
+    end
+    @developerKey ||= developerKey
+    @websiteId    ||= websiteId
   end
 
   #
@@ -190,11 +266,47 @@ class CommissionJunction
   def getLanguages
     doOperation('FieldTypesSupport', 'getLanguages', self.instance_variables_hash)
   end
+  
+  def database_enabled?
+    not @database.nil?
+  end
 
   protected
   def doOperation(service, method, params)
     factory = SOAP::WSDLDriverFactory.new(@@wsdls[service])
     driver = factory.create_rpc_driver
     driver.send(method, params).to_hash["out"]
+  end
+
+  def parse_config_file!
+    config = Config.parse!
+    @developerKey = config["developerKey"]
+    @websiteId    = config["websiteId"]
+    @database     = config["database"]
+  end
+
+  def self.migrate!
+    db_connect!
+    require 'commission_junction/migrate'
+  end
+
+  def self.db_connect!
+    require 'active_record'
+    config = CommissionJunction::Config.parse!
+    ActiveRecord::Base.establish_connection(config["database"])
+  end
+
+  class Config
+    #
+    # The configuration file should be created at 
+    # $HOME/.commission_junction
+    #
+    def self.file
+      File.join(ENV['HOME'], ".commission_junction.yaml")    
+    end
+    
+    def self.parse!
+      YAML.load(File.read(file))      
+    end
   end
 end
