@@ -4,5 +4,5 @@ Dir['tasks/**/*.rake'].each { |rake| load rake }
 
 desc "Rebuilds the rdoc pages"
 task :rdoc do
-  `rdoc README.rdoc  lib/* -o doc`
+  `rdoc README.rdoc  lib/* lib/commission_junction/* -o doc`
 end

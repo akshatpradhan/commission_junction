@@ -21,10 +21,10 @@ end
 
 CreateSearchLinks.migrate(:up)
 
-class CreateCategories < ActiveRecord::Migration
-  def self.up
-    create_table :categories do
-      t.string :name
-    end
-  end
-end
+# class CreateCategories < ActiveRecord::Migration
+#   def self.up
+#     create_table :categories do
+#       t.string :name
+#     end
+#   end
+# end

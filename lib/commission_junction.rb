@@ -79,7 +79,7 @@ require 'commission_junction/ext'
 # and model, instead of fetching it on every request. 
 #
 # Here's an example, 
-
+#
 # 1) First add your database information to the commission 
 # junction config, mentioned above:
 #   
@@ -90,7 +90,6 @@ require 'commission_junction/ext'
 #     adapter: mysql
 #     database: commission_junction
 #     username: cj
-#     password: cj
 #     host: localhost
 #
 # 2) Create your database:
@@ -104,30 +103,38 @@ require 'commission_junction/ext'
 # 
 #   >> require 'rubygems'
 #   >> require 'commission_junction'
-#   >> require 'commission_junction/migrate'
 #   >> 
 #   >> CommissionJunction.migrate!
+#
+#   ==  CreateSearchLinks: migrating ==============================================
+#   -- create_table(:search_links)
+#      -> 0.1812s
+#   ==  CreateSearchLinks: migrated (0.1817s) =====================================
+#
+#   => ["CreateSearchLinks"]
 #  
 # A more preferable method may be found so this step
 # may change in the future, but for now it's adequate.
 # 
 # 4) Next you'll want to start loading it with content. 
 # 
-#   require 'rubygems'
-#   require 'commission_junction'
-#   require 'commission_junction/search_links'
+#   require 'commission_junction/search_link'
 #   
-#   SearchLinks.update!
+#   SearchLink.update!
 #   
-# This should load your table with all the categories available
-# from Commission Junction. 
+# This should start to load your table with all the categories 
+# available from Commission Junction. This may take awhile so
+# you may want to schedule this at regular intervals instead
+# of doing so by hand.
+#
+# Scheduling section coming soon..
 # 
 
 class CommissionJunction
   module VERSION 
     MAJOR = 1
-    MINOR = 0
-    TINY  = 4
+    MINOR = 1
+    TINY  = 0
 
     STRING = [MAJOR, MINOR, TINY].join('.')
   end

@@ -6,3 +6,7 @@
 == 1.0.2
 
 * Added RDocs and simple example
+
+== 1.1
+
+* Added storage capabilities
